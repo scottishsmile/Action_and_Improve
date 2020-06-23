@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Improvement Register Print Friendly</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css"  href="{% static 'notice_board/print_styles.css' %}"/>
+</head>
+<body>
+
+<div class="grid">
+    <div class="grid-item"><strong>Improvement</strong></div>
+    <div class="grid-text"><strong>Details</strong></div>
+    <div class="grid-item"><strong>Assigned</strong></div>
+    <div class="grid-item"><strong>Due</strong></div>
+    {% for improvement in all_improvements %}
+        {% if improvement.complete is False %}
+            <div class="grid-item">{{improvement.title}}</div>
+            <div class="grid-text">{{improvement.text}}</div>
+            <div class="grid-item">{{improvement.assigned}}</div>
+            <div class="grid-item">{{improvement.due.date}}</div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+</body>
+</html>

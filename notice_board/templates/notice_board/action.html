@@ -1,0 +1,55 @@
+{% extends 'notice_board/base.html' %}
+
+{% block h3_pagetext %}The Actions Register!{% endblock %}
+
+{% block p_pagetext %}
+<p>New Action Posts:</p>
+<br></br>
+{% if all_actions %}
+    <h5>To Do:</h5>
+    <ul>
+        {% for action in all_actions %}
+            {% if action.complete is False %}
+                <li><a href="{% url 'notice_board:action_detail' action.id %}">{{ action.title }}</a> is Due on {{action.due.date}} - <em>{{action.assigned}}</em>.</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <br></br>
+    <h5>Completed:</h5>
+    <ul>
+        {% for action in all_actions %}
+            {% if action.complete is True %}
+                <li><a href="{% url 'notice_board:action_detail' action.id %}">{{ action.title }}</a> is Due on {{action.due.date}} - <em>{{action.assigned}}</em>.</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3> No Actions Left To Do... </h3>
+{% endif %}
+
+<br></br>
+<div class="print_page">
+    <p><a href="{% url 'notice_board:action_print'%}">Printer Friendly Page</a> - Click here to print</p>
+</div>
+<br></br>
+{% if user.is_authenticated %}
+<div class="form-container">
+<div class="form-section">
+    <br></br>
+    <h4>Create New Action:</h4>
+    <br></br>
+    <form method="post" action="{% url 'notice_board:action_add' %}">
+        {% csrf_token %}
+        <p><label for="title">Title: </label><input type="text" name="title" placeholder="My Action"> required</p>
+        <p><label for="due">Due: </label><input type="date" name="due" required></p>
+        <p><label for="assigned">Assigned: </label><input type="text" name="assigned" placeholder="Assigned To" required></p>
+        <br></br>
+        <p><label for="due">Action Details: </label></p>
+        <p><textarea name="text" rows="5" cols="50" placeholder="What's the plan?" required></textarea></p>
+        <br></br>
+        <p><input type="submit" name="" value="Create Action!"></p>
+    </form>
+</div>
+</div>
+{% endif %}
+{% endblock %}

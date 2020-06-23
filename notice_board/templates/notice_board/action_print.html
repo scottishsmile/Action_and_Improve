@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Action Register Print Friendly</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css"  href="{% static 'notice_board/print_styles.css' %}"/>
+</head>
+<body>
+<div class="header"><center><h3><em><u>Action Register   -   To Do:</u></em></h3></center></div>
+<br></br>
+<div class="grid">
+    <div class="grid-item"><strong>Action</strong></div>
+    <div class="grid-text"><strong>Details</strong></div>
+    <div class="grid-item"><strong>Assigned</strong></div>
+    <div class="grid-item"><strong>Due</strong></div>
+    {% for action in all_actions %}
+        {% if action.complete is False %}
+            <div class="grid-item">{{action.title}}</div>
+            <div class="grid-text">{{action.text}}</div>
+            <div class="grid-item">{{action.assigned}}</div>
+            <div class="grid-item">{{action.due.date}}</div>
+        {% endif %}
+    {% endfor %}
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Actions and Improvements{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'notice_board/base_styles.css' %}"/>
+</head>
+<body>
+<div class='page'>
+    <div class='top-menu-container'>
+        <div class='top-menu'>
+            <div class='top-title'><a href="{% url 'notice_board:index' %}">Action and Improve</a></div>
+                <div class='top-links'>
+                    {% if user.is_authenticated %}
+                        <div class='signup'></a>{{ user.username }}</div>
+                        <div class='login'><a href="{% url 'notice_board:change_password' %}">Change Password</a></div>
+                        <div class='login'><a href="{% url 'notice_board:logout' %}">Logout</a></div>
+                    {% else %}
+                        <div class='signup'><a href="{% url 'notice_board:register' %}">Sign Up</a></div>
+                        <div class='login'><a href="{% url 'notice_board:user_login' %}">Login</a></div>
+                    {% endif %}
+                </div>
+        </div>
+        </div>
+    		    <div class='horizontal-grid-container'>
+            	    <div class='horizontal-box'>
+                        <a href="{% url 'notice_board:action' %}"><div class='horizontal-box-item first-item'></div></a>
+                        <a href="{% url 'notice_board:improvement' %}"><div class='horizontal-box-item second-item'></div></a>
+                    </div>
+  			    </div>
+
+        <div class='page-container'>
+            <div class='page-box'>
+                <div class='page-text'>
+                    <h3>{% block h3_pagetext %} {% endblock %}</h3>
+                    {% block p_pagetext %} {% endblock %}
+                </div>
+            </div>
+         </div>
+</div>
+</div>
+<div class="footer">
+    <p>Copyright Andrew Davies 2020</p>
+	<p>View our APIs <a href="{% url 'notice_board:api_actions' %}">Action API</a> and <a href="{% url 'notice_board:api_improvements' %}">Improvement API</a></p>
+	<br></br>
+</div>
+</body>
+</html>

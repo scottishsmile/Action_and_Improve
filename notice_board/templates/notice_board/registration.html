@@ -1,0 +1,20 @@
+{% extends 'notice_board/base.html' %}
+
+{% block h3_pagetext %}Registration{% endblock %}
+
+{% block p_pagetext %}
+
+    {% if registered %}
+        <p>Thank you for registering! <a href="{% url 'notice_board:user_login' %}">Login</a></p>
+    {% else %}
+        <br></br>
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            <br></br>
+            <input type="submit" name="" value="Register">
+        </form>
+
+      {% endif %}
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'notice_board/base.html' %}
+
+{% block h3_pagetext %}The Improvement Register!{% endblock %}
+
+{% block p_pagetext %}
+<p>New Improvement Posts:</p>
+<br></br>
+{% if all_improvements %}
+<h5>To Do:</h5>
+    <ul>
+        {% for improvement in all_improvements %}
+            {% if improvement.complete is False %}
+                <li><a href="{% url 'notice_board:improvement_detail' improvement.id %}">{{ improvement.title }}</a> is Due on  {{improvement.due.date}} - <em>{{improvement.assigned}}</em>.</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+ <br></br>
+    <h5>Completed:</h5>
+    <ul>
+        {% for improvement in all_improvements %}
+            {% if improvement.complete is True %}
+                <li><a href="{% url 'notice_board:improvement_detail' improvement.id %}">{{ improvement.title }}</a> is Due on  {{improvement.due.date}} - <em>{{improvement.assigned}}</em>.</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3> No Improvements Left To Do... </h3>
+{% endif %}
+
+<br></br>
+<div class="print_page">
+    <p><a href="{% url 'notice_board:improvement_print'%}">Printer Friendly Page</a> - Click here to print</p>
+</div>
+<br></br>
+{% if user.is_authenticated %}
+<div class="form-container">
+<div class="form-section">
+    <br></br>
+    <h4>Create New Improvement:</h4>
+    <br></br>
+    <form method="post" action="{% url 'notice_board:improvement_add' %}" required>
+        {% csrf_token %}
+        <p><label for="title">Title: </label><input type="text" name="title" placeholder="My Improvement" required></p>
+        <p><label for="due">Due: </label><input type="date" name="due" required></p>
+        <p><label for="assigned">Assigned: </label><input type="text" name="assigned" placeholder="Assigned To" required></p>
+        <br></br>
+        <p><label for="due">Improvement Details: </label></p>
+        <p><textarea name="text" rows="5" cols="50" placeholder="What's the idea?"required></textarea></p>
+        <br></br>
+        <p><input type="submit" name="" value="Create Improvement!"></p>
+    </form>
+</div>
+</div>
+{% endif %}
+
+
+{% endblock %}

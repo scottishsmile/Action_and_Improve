@@ -1,0 +1,64 @@
+{% extends 'notice_board/base.html' %}
+
+{% block h3_pagetext %}Action {{action.title}}{% endblock %}
+
+{% block p_pagetext %}
+    {% for action in action %}
+        {% if action.pk == action_id %}
+            <br></br>
+            <p>Action ID: {{action.pk}}</p>
+            <br></br>
+
+            <p>Created: {{action.created.date}}</p>
+            <br></br>
+
+            <p>Due: {{action.due.date}}</p>
+            <br></br>
+
+             <p>Assigned To: {{action.assigned}}</p>
+            <br></br>
+
+            <p>Title: {{action.title}}</p>
+            <br></br>
+
+            <p>{{action.text}}</p>
+            <br></br>
+        {% else %}
+            <p> error in calling action</p>
+        {% endif %}
+
+<br></br>
+{% if user.is_authenticated %}
+<div class="form-container">
+<div class="form-section">
+    <br></br>
+    <h4>Edit This Action:</h4>
+    <br></br>
+    <form method="post" action="{% url 'notice_board:action_detail' action.id %}">
+        {% csrf_token %}
+        <p><label for="complete">Action Completed? </label><input type="radio" name="complete" value=True {% if action.complete is True %} checked {% endif %}}> Yes <input type="radio" name="complete" value=False {% if action.complete is False %} checked {% endif %}}> No</p>
+        <p><label for="title">Title: </label><input type="text" name="title" value="{{action.title}}" required></p>
+        <p><label for="due">Due: </label><input type="date" name="due" required></p>
+        <p><label for="assigned">Assigned: </label><input type="text" name="assigned" value="{{action.assigned}}" required></p>
+        <br></br>
+        <p><label for="due">Action Details: </label></p>
+        <p><textarea name="text" rows="5" cols="50" required>{{action.text}}</textarea></p>
+        <br></br>
+        <p><input type="submit" name="" value="Edit Action"></p>
+    </form>
+
+     <form method="post" action="{% url 'notice_board:change_act_to_imp' %}">
+         {% csrf_token %}
+         <p><input type="submit" name="" value="Change to Improvement"></p>
+     </form>
+
+    <form method="post" action="{% url 'notice_board:action_delete' %}">
+         {% csrf_token %}
+         <p><input type="submit" name="" value="Delete"></p>
+     </form>
+
+</div>
+</div>
+{% endif %}
+    {% endfor %}
+{% endblock %}

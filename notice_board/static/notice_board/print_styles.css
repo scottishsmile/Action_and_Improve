@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: Ariel;
+    font-size: 22px;
+}
+
+.grid {
+    display: grid;
+    display: inline-grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(auto-fill, 1fr);
+}
+
+.grid-item {
+    top-border: 5px black;
+    right-border: 5px black;
+    bottom-border: 5px black;
+    left-border: 5px black;
+}
+
+.grid-text {
+    grid-column: span 2;
+}

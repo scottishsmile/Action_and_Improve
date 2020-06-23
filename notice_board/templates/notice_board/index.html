@@ -1,0 +1,21 @@
+{% extends 'notice_board/base.html' %}
+
+{% block h3_pagetext %}Actions and Improvement Register!{% endblock %}
+
+{% block p_pagetext %}
+<br></br>
+<p>Please click the above links to view each of the registers.</p>
+<p>You will need to sign up or log in to create / edit or delete posts.</p>
+<p>There will be printer-friendly copies of each register available.</p>
+<br></br>
+{% if user.is_authenticated %}
+    <h3>Hello {{ user.username }}</h3>
+{% else %}
+    <h3>Please <a href="{% url 'notice_board:register' %}">Sign Up</a> or <a href="{% url 'notice_board:user_login' %}">Login</a></h3>
+{% endif %}
+<br></br>
+<p>We have APIs that allow you to view the action and improvement register in JSON format.</p>
+<p>You can also use the API to post data in conjunction with your user account.</p>
+<p><a href="{% url 'notice_board:api_actions' %}">Action API</a> and <a href="{% url 'notice_board:api_improvements' %}">Improvement API</a></p>
+<br></br>
+{% endblock %}

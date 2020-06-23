@@ -1,0 +1,8 @@
+{% extends 'notice_board/base.html' %}
+
+{% block h3_pagetext %}New Action Created!{% endblock %}
+
+{% block p_pagetext %}
+<p>Please visit the <a href="{% url 'notice_board:action' %}">Action register</a></p>
+
+{% endblock %}

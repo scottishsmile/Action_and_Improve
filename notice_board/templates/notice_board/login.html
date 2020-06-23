@@ -1,0 +1,18 @@
+{% extends 'notice_board/base.html' %}
+
+{% block h3_pagetext %}Please Login!{% endblock %}
+
+{% block p_pagetext %}
+<br></br>
+<form method="post" action="{% url 'notice_board:user_login' %}">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <p><input type="text" name="username" placeholder="Username"></p>
+    <label for="password">Password:</label>
+    <p><input type="password" name="password" placeholder="Password"></p>
+    <br></br>
+    <p><input type="submit" name="" value="Login"></p>
+</form>
+<br></br>
+<p>Forgot Your Password? <a href="{% url 'notice_board:restore_password' %}">Yes</a></p>
+{% endblock %}
