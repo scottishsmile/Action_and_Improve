@@ -1,5 +1,4 @@
 # Action and Improvement Register
-#--------------------------------
 A Django web app.
 
 Keep a list of actions and improvements for your workplace!
